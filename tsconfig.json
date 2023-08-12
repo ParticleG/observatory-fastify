@@ -1,0 +1,35 @@
+{
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "ESNext",
+    "sourceMap": true,
+    "target": "ESNext",
+    "paths": {
+      "plugins/*": [
+        "./src/plugins/*"
+      ],
+      "routes/*": [
+        "./src/routes/*"
+      ],
+      "statics/*": [
+        "./src/statics/*"
+      ],
+      "types/*": [
+        "./src/types/*"
+      ],
+      "utils/*": [
+        "./src/utils/*"
+      ],
+      "app/*": [
+        "./*"
+      ]
+    },
+    "outDir": "dist",
+  },
+  "include": [
+    "config.ts",
+    "server.ts",
+    "src/**/*.ts"
+  ]
+}

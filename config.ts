@@ -25,26 +25,26 @@ const validate = ajv.compile({
         close_delay: {
           type: 'number',
           default: 500,
-          minimum: 0
+          minimum: 0,
         },
         host: {
           type: 'string',
-          default: 'localhost'
+          default: 'localhost',
         },
         port: {
           type: 'number',
           default: 3000,
           minimum: 0,
-          maximum: 65535
-        }
-      }
-    }
-  }
+          maximum: 65535,
+        },
+      },
+    },
+  },
 });
 
 export default fastifyPlugin(async (fastify) => {
   const config = parse(
-    readFileSync(resolve(join(process.cwd(), 'config.toml'))).toString()
+    readFileSync(resolve(join(process.cwd(), 'config.toml'))).toString(),
   );
 
   if (validate(config)) {

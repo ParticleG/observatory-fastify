@@ -9,7 +9,7 @@ export const LogLevel = {
   plain: chalk.white,
   link: chalk.underline,
   warning: chalk.yellow,
-  error: chalk.red
+  error: chalk.red,
 };
 
 export class Logger {
@@ -43,7 +43,7 @@ export class Logger {
     module: string,
     message: any,
     reason?: any,
-    hint?: any
+    hint?: any,
   ): void {
     const baseColor = LogLevel[type];
     const offsetString = ''.repeat(27 + module.length);
@@ -60,12 +60,10 @@ export class Logger {
       }
     }
     if (hint) {
-      result +=
-        `${offsetString}${baseColor('├')} ${LogLevel.info('Suggestions below: \n')}${offsetString}`;
-      result += `└ ${hint.replaceAll(
-        '\n',
-        `\n  ${offsetString}`
-      )}`;
+      result += `${offsetString}${baseColor('├')} ${LogLevel.info(
+        'Suggestions below: \n',
+      )}${offsetString}`;
+      result += `└ ${hint.replaceAll('\n', `\n  ${offsetString}`)}`;
     }
     console.log(result);
   }

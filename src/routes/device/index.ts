@@ -1,7 +1,7 @@
-import { FastifyPluginAsync } from 'fastify';
+import type { FastifyPluginAsync } from 'fastify';
 import { Logger, LogLevel } from 'types/Logger';
 import { WsConnection } from 'types/WsConnection';
-import { deviceListener } from 'types/DeviceListener';
+import { deviceListener } from 'types/DeviceListenerSingleton';
 
 export default <FastifyPluginAsync>(async (fastify): Promise<void> => {
   fastify.get('/', { websocket: true }, async (connection, request) => {

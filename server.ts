@@ -1,7 +1,7 @@
-import { ErrorObject } from 'ajv/lib/types';
+import type { ErrorObject } from 'ajv/lib/types';
 import Fastify from 'fastify';
 
-import { deviceListener } from 'types/DeviceListener';
+import { deviceListener } from 'types/DeviceListenerSingleton';
 import { Logger, LogLevel } from 'types/Logger';
 
 const fastify = Fastify({
@@ -31,9 +31,9 @@ async function main() {
       host: fastify.config.server.host,
       port: fastify.config.server.port,
     },
-    (err: any) => {
+    (err: Error | null) => {
       if (err) {
-        fastify.log.error(err);
+        Logger.error('Server', 'Cannot start', err.message);
         process.exit(1);
       }
     },
@@ -49,8 +49,8 @@ async function main() {
   );
 }
 
-main().catch((errors) => {
-  if (errors instanceof Array<ErrorObject>) {
+main().catch((errors: unknown) => {
+  if (Array.isArray(errors)) {
     errors.forEach((error: ErrorObject) => {
       Logger.error(
         'Config',
@@ -62,7 +62,11 @@ main().catch((errors) => {
       );
     });
   } else {
-    console.log(errors.join('\n'));
+    Logger.error(
+      'Config',
+      'Cannot start server',
+      errors instanceof Error ? errors.message : String(errors),
+    );
   }
   fastify.close().then(
     () => Logger.success('Server', 'Successfully closed'),

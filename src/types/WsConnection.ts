@@ -1,11 +1,11 @@
 import { v4 as uuid } from 'uuid';
-import { RawData, WebSocket } from 'ws';
+import type { RawData, WebSocket } from 'ws';
 
-import { WsAction } from 'types/actions';
-import { WsId } from 'types/common';
-import { WsResponse } from 'types/wsMessages';
+import type { WsAction } from 'types/actions';
+import type { WsId } from 'types/common';
+import type { WsResponse } from 'types/wsMessages';
 import { parseWsMessage } from 'utils/validator';
-import { deviceListener } from 'types/DeviceListener';
+import { deviceListener } from 'types/DeviceListenerSingleton';
 
 type MessageHandler = (wsMessage: any) => Promise<void>;
 

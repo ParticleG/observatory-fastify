@@ -1,11 +1,11 @@
 import { test } from 'tap'
 import Fastify from 'fastify'
-import Support from '../../src/plugins/support.js'
+import Sensible from '../../src/plugins/sensible.ts'
 
-test('support works standalone', async (t) => {
+test('sensible plugin works standalone', async (t) => {
   const fastify = Fastify()
-  void fastify.register(Support)
+  void fastify.register(Sensible)
   await fastify.ready()
 
-  t.equal(fastify.someSupport(), 'hugs')
+  t.type(fastify.httpErrors.notFound, 'function')
 })
